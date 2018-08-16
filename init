@@ -1,0 +1,5 @@
+#!/bin/sh
+mkdir -p /var/wwwroot/guningblog
+mkdir -p /var/wwwlog/guningblog
+php-fpm -D
+nginx
