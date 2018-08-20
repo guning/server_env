@@ -1,5 +1,28 @@
 #!/bin/sh
-mkdir -p /var/wwwroot/guningblog
-mkdir -p /var/wwwlog/guningblog
-php-fpm -D
-nginx
+nowPath=$(dirname $(readlink -f "$0"))
+# init some dir if needed
+# find the conf file
+if [ ! -f "$nowPath/nginx/nginx.conf" ]
+then
+    echo "file nginx.conf is needed"
+    exit
+fi
+if [ ! -d "$nowPath/nginx/vhosts" ]
+then
+    echo "dir vhosts is needed"
+    exit
+fi
+# copy them into the conf dir
+cp -f  $nowPath/nginx/nginx.conf /etc/nginx/nginx.conf
+cp -f  $nowPath/nginx/vhosts/*.conf /etc/nginx/conf.d/
+# start service
+if [ "$1" = "update" ]
+then
+    echo "update conf\n"
+    killall php-fpm && php-fpm -D
+    nginx -s reload
+else
+    echo "start server\n"
+    php-fpm -D
+    nginx
+fi
