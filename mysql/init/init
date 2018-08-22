@@ -1,0 +1,3 @@
+#!/bin/sh
+rc-update add mysqld
+rc-service mysqld start

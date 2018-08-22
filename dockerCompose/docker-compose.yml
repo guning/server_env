@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  webserver:
+    build: ${webServerDir}
+    ports:
+      - "80:80"
+    volumes:
+      - ${winitDir}:/var/init
+      - ${wcodeDir}:/var/wwwroot
+      - ${wlogDir}:/var/wwwlog
+    container_name: ${webServerName}
+    depends_on:
+      - db
+
+  db:
+    build: ${dbDir}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${dbdataDir}:/var/lib/mysql
+      - ${dbinitDir}:/var/init
+    container_name: ${dbName}
