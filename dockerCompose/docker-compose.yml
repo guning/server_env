@@ -10,6 +10,7 @@ services:
       - ${wcodeDir}:/var/wwwroot
       - ${wlogDir}:/var/wwwlog
     container_name: ${webServerName}
+    tty: true
     depends_on:
       - db
 
@@ -21,3 +22,4 @@ services:
       - ${dbdataDir}:/var/lib/mysql
       - ${dbinitDir}:/var/init
     container_name: ${dbName}
+    tty: true
