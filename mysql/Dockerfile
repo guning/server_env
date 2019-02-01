@@ -2,6 +2,9 @@ FROM alpine:3.7
 
 ENV GOSU_VERSION 1.7
 
+RUN export http_proxy=web-proxy.tencent.com:8080
+RUN export https_proxy=web-proxy.tencent.com:8080
+
 RUN set -x \
         && addgroup -S mysql && adduser -D -S -h /var/cache/mysql -s /sbin/nologin -G mysql mysql \
         && apk add --no-cache mysql \
